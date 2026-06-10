@@ -4,9 +4,12 @@
   "description": "Videojuego educativo inspirado en la cultura peruana",
   "scripts": {
     "build": "tsc",
+    "build:vercel": "npm run build && rm -rf public && mkdir -p public && cp index.html public/ && cp -r styles assets dist public/",
     "watch": "tsc --watch",
     "serve": "npx --yes serve . -l 3000",
-    "start": "npm run build && npm run serve"
+    "serve:prod": "npx --yes serve public -l 3000",
+    "start": "npm run build && npm run serve",
+    "preview": "npm run build:vercel && npm run serve:prod"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

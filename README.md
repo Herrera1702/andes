@@ -65,6 +65,28 @@ Para desarrollo con recarga automática al compilar:
 npm run watch
 ```
 
+## Despliegue en Vercel
+
+1. Sube el repositorio a GitHub, GitLab o Bitbucket.
+2. En [vercel.com/new](https://vercel.com/new), importa el repositorio.
+3. Vercel detecta `vercel.json` y usa:
+   - **Build command:** `npm run build:vercel`
+   - **Output directory:** `public`
+4. Haz clic en **Deploy**.
+
+También puedes desplegar desde la CLI:
+
+```bash
+npm i -g vercel
+vercel
+```
+
+Para probar localmente el artefacto de producción antes de desplegar:
+
+```bash
+npm run preview
+```
+
 ## Controles
 
 | Plataforma | Controles |
