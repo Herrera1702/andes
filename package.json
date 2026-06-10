@@ -1,0 +1,14 @@
+{
+  "name": "el-tesoro-perdido-de-los-andes",
+  "version": "1.0.0",
+  "description": "Videojuego educativo inspirado en la cultura peruana",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "serve": "npx --yes serve . -l 3000",
+    "start": "npm run build && npm run serve"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

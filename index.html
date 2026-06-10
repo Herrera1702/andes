@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#6B4F3A">
+  <meta name="description" content="El Tesoro Perdido de los Andes - Explora ruinas incas y encuentra el tesoro perdido">
+  <title>El Tesoro Perdido de los Andes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Pantalla de carga -->
+    <section id="screen-loading" class="screen active" aria-label="Cargando">
+      <canvas id="loading-particles" class="particle-canvas" aria-hidden="true"></canvas>
+      <div class="loading-vignette" aria-hidden="true"></div>
+      <div class="loading-content">
+        <div class="loading-logo glow-pulse" aria-hidden="true">
+          <svg viewBox="0 0 120 120" width="90" height="90" role="img" aria-label="Logo">
+            <defs>
+              <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#F0D060"/>
+                <stop offset="100%" stop-color="#D4AF37"/>
+              </radialGradient>
+            </defs>
+            <circle cx="60" cy="60" r="55" fill="url(#goldGlow)" opacity="0.25"/>
+            <polygon points="60,15 95,85 25,85" fill="url(#goldGlow)" stroke="#6B4F3A" stroke-width="2"/>
+            <circle cx="60" cy="55" r="12" fill="#D91023"/>
+          </svg>
+        </div>
+        <h2 class="loading-title">El Tesoro Perdido de los Andes</h2>
+        <div class="loading-bar-track">
+          <div id="loading-progress" class="loading-bar-fill"></div>
+        </div>
+        <p id="loading-text" class="loading-text">Iniciando expedición...</p>
+      </div>
+    </section>
+
+    <!-- Pantalla de inicio -->
+    <section id="screen-menu" class="screen" aria-label="Menú principal">
+      <div class="andes-bg" aria-hidden="true">
+        <div class="parallax-layer layer-sky"></div>
+        <div class="parallax-layer layer-sun-glow"></div>
+        <div class="parallax-layer layer-mountains-far"></div>
+        <div class="parallax-layer layer-mountains-mid"></div>
+        <div class="parallax-layer layer-mountains-near"></div>
+        <div class="parallax-layer layer-mist"></div>
+        <div class="parallax-layer layer-foreground"></div>
+      </div>
+      <canvas id="menu-particles" class="particle-canvas" aria-hidden="true"></canvas>
+      <div class="menu-vignette" aria-hidden="true"></div>
+      <button id="btn-sound-toggle" class="btn-sound-toggle" aria-label="Activar sonido" title="Sonido">🔇</button>
+      <div class="menu-content">
+        <div class="logo glow-pulse" aria-hidden="true">
+          <div class="logo-ring"></div>
+          <svg viewBox="0 0 120 120" width="110" height="110" role="img" aria-label="Logo del juego">
+            <defs>
+              <radialGradient id="logoGold" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#F0D060"/>
+                <stop offset="100%" stop-color="#D4AF37"/>
+              </radialGradient>
+              <filter id="logoGlow">
+                <feGaussianBlur stdDeviation="2" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <circle cx="60" cy="60" r="55" fill="url(#logoGold)" opacity="0.2"/>
+            <polygon points="60,15 95,85 25,85" fill="url(#logoGold)" stroke="#6B4F3A" stroke-width="2" filter="url(#logoGlow)"/>
+            <circle cx="60" cy="55" r="12" fill="#D91023"/>
+            <rect x="50" y="70" width="20" height="15" fill="#6B4F3A" rx="2"/>
+          </svg>
+        </div>
+        <h1 class="game-title shimmer-text">El Tesoro Perdido<br><span>de los Andes</span></h1>
+        <p class="game-subtitle">Explora las ruinas incas y encuentra el tesoro sagrado</p>
+        <div class="menu-divider" aria-hidden="true"></div>
+        <div class="level-select" aria-label="Selección de dificultad">
+          <span class="level-label">Dificultad</span>
+          <div class="level-buttons">
+            <button class="btn-level active" data-level="1" aria-label="Nivel 1">I</button>
+            <button class="btn-level" data-level="2" aria-label="Nivel 2">II</button>
+            <button class="btn-level" data-level="3" aria-label="Nivel 3">III</button>
+          </div>
+          <p id="level-desc" class="level-desc">Explorador Novato — 2 guardianes</p>
+        </div>
+        <nav class="menu-buttons" aria-label="Opciones del menú">
+          <button id="btn-play" class="btn btn-primary btn-glow" autofocus>
+            <span class="btn-shine"></span>Jugar
+          </button>
+          <button id="btn-ranking" class="btn btn-secondary">
+            <span class="btn-shine"></span>Ranking
+          </button>
+          <button id="btn-instructions" class="btn btn-secondary">
+            <span class="btn-shine"></span>Instrucciones
+          </button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Pantalla de instrucciones -->
+    <section id="screen-instructions" class="screen" aria-label="Instrucciones">
+      <div class="screen-backdrop" aria-hidden="true"></div>
+      <div class="panel panel-glass">
+        <h2 class="panel-title">Instrucciones</h2>
+        <div class="instructions-content">
+          <div class="instruction-block">
+            <h3>Objetivo</h3>
+            <p>Explora las ruinas andinas y recolecta las <strong>5 piezas del tesoro inca</strong> escondidas por el mapa.</p>
+          </div>
+          <div class="instruction-block">
+            <h3>Controles — Escritorio</h3>
+            <p>Usa las teclas <kbd>W A S D</kbd> o las <kbd>flechas</kbd> para mover al explorador.</p>
+          </div>
+          <div class="instruction-block">
+            <h3>Controles — Móvil</h3>
+            <p>Usa el <strong>joystick táctil</strong> en la esquina inferior izquierda para desplazarte.</p>
+          </div>
+          <div class="instruction-block">
+            <h3>Puntaje</h3>
+            <ul>
+              <li><span class="score-plus">+100</span> por cada pieza de tesoro</li>
+              <li><span class="score-plus">+10</span> por exploración continua</li>
+              <li><span class="score-minus">−25</span> al chocar con un guardián</li>
+            </ul>
+          </div>
+          <div class="instruction-block">
+            <h3>Consejo</h3>
+            <p>Evita a los guardianes de las ruinas. ¡Buena suerte, explorador!</p>
+          </div>
+        </div>
+        <button id="btn-back-instructions" class="btn btn-secondary"><span class="btn-shine"></span>Volver</button>
+      </div>
+    </section>
+
+    <!-- Pantalla de ranking -->
+    <section id="screen-ranking" class="screen" aria-label="Ranking">
+      <div class="screen-backdrop" aria-hidden="true"></div>
+      <div class="panel panel-glass">
+        <h2 class="panel-title">Ranking de Exploradores</h2>
+        <div id="ranking-table-container">
+          <table id="ranking-table" aria-label="Tabla de puntuaciones">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Puntaje</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody id="ranking-body">
+            </tbody>
+          </table>
+          <p id="ranking-empty" class="empty-message" hidden>No hay récords aún. ¡Sé el primero!</p>
+        </div>
+        <button id="btn-back-ranking" class="btn btn-secondary"><span class="btn-shine"></span>Volver</button>
+      </div>
+    </section>
+
+    <!-- Pantalla de juego -->
+    <section id="screen-game" class="screen" aria-label="Juego">
+      <div id="hud" class="hud hud-glass" aria-live="polite">
+        <div class="hud-item">
+          <span class="hud-label">Nivel</span>
+          <span id="hud-level" class="hud-value">1</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Puntaje</span>
+          <span id="hud-score" class="hud-value">0</span>
+        </div>
+        <div class="hud-item hud-item-center">
+          <span class="hud-label">Tiempo</span>
+          <span id="hud-time" class="hud-value">00:00</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Tesoros</span>
+          <span id="hud-treasures" class="hud-value gold-text">0 / 5</span>
+        </div>
+      </div>
+      <span id="hud-level-name" class="sr-only"></span>
+      <canvas id="game-canvas" aria-label="Área de juego"></canvas>
+      <div id="joystick" class="joystick" aria-hidden="true">
+        <div id="joystick-base" class="joystick-base">
+          <div id="joystick-stick" class="joystick-stick"></div>
+        </div>
+      </div>
+      <button id="btn-pause" class="btn btn-small btn-pause" aria-label="Pausar juego">⏸</button>
+    </section>
+
+    <!-- Pantalla de victoria -->
+    <section id="screen-victory" class="screen" aria-label="Victoria">
+      <canvas id="victory-particles" class="particle-canvas" aria-hidden="true"></canvas>
+      <div class="screen-backdrop victory-backdrop" aria-hidden="true"></div>
+      <div class="panel panel-glass victory-panel">
+        <div class="victory-rays" aria-hidden="true"></div>
+        <div class="victory-icon glow-pulse" aria-hidden="true">🏆</div>
+        <h2 class="panel-title shimmer-text">¡Tesoro Encontrado!</h2>
+        <p class="victory-message">Has reunido todas las piezas del antiguo tesoro inca.</p>
+        <div class="victory-stats">
+          <div class="stat stat-glass">
+            <span class="stat-label">Puntaje Final</span>
+            <span id="victory-score" class="stat-value gold-text">0</span>
+          </div>
+          <div class="stat stat-glass">
+            <span class="stat-label">Tiempo</span>
+            <span id="victory-time" class="stat-value">00:00</span>
+          </div>
+        </div>
+        <form id="victory-form" class="victory-form">
+          <label for="player-name">Tu nombre:</label>
+          <input type="text" id="player-name" maxlength="20" placeholder="Explorador" required autocomplete="nickname">
+          <button type="submit" class="btn btn-primary btn-glow"><span class="btn-shine"></span>Guardar Récord</button>
+        </form>
+        <button id="btn-play-again" class="btn btn-secondary"><span class="btn-shine"></span>Jugar de Nuevo</button>
+        <button id="btn-menu-victory" class="btn btn-secondary"><span class="btn-shine"></span>Menú Principal</button>
+      </div>
+    </section>
+
+    <!-- Pantalla de pausa -->
+    <section id="screen-pause" class="screen overlay" aria-label="Pausa">
+      <div class="panel panel-glass pause-panel">
+        <h2 class="panel-title">Pausa</h2>
+        <button id="btn-resume" class="btn btn-primary btn-glow"><span class="btn-shine"></span>Continuar</button>
+        <button id="btn-quit" class="btn btn-secondary"><span class="btn-shine"></span>Salir al Menú</button>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="dist/main.js"></script>
+</body>
+</html>
